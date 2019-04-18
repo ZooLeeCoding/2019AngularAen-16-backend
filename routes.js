@@ -19,6 +19,13 @@ router.post('/login', function(req, res) {
     })(req, res);
 });
 
+router.post('/signup', function(req, res) {
+    var result = users.setUser(req.body.username, req.body.password);
+    if(result) {
+        return res.status(200).send({message: result + " registration success"});
+    } return res.status(401).send({message: "username already taken"});
+});
+
 router.post('/logout', function(req, res) {
     if(req.isAuthenticated()) {
         req.logout();
@@ -30,8 +37,6 @@ router.post('/logout', function(req, res) {
 });
 
 router.get('/proba', function(req, res) {
-    console.log(users.getUsers());
-    users.setUser("pelda1234", "1456");
     if(req.isAuthenticated()) {
         return res.status(200).send({message: "you are logged in"});
     } else {

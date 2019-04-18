@@ -26,7 +26,7 @@ app.use(cookieParser());
 passport.use('local', new LocalStrategy.Strategy(function(
     username, password, done) {
         console.log(users.getUsers());
-        if(username === "user" && password === '12345') {
+        if(users.getUser(username) && users.getUser(username) === password) {
             return done(null, username);
         } else {
             return done("Wrong username/pw", null);
